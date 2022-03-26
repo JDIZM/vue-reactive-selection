@@ -2,6 +2,10 @@
 
 This is built with Vue 2 using [Vite](https://vitejs.dev/).
 
+Resources
+- https://v2.vuejs.org/v2/guide/reactivity.html
+- https://michaelnthiessen.com/how-to-watch-nested-data-vue/
+
 ## Setup
 
 ```bash
