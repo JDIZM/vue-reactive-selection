@@ -28,7 +28,7 @@
     inheritAttrs: false,
     model: {
       data: "value",
-      event: "update",
+      event: "input",
     },
     props: {
       value: {
