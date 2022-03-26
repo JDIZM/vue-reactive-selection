@@ -1,0 +1,34 @@
+{
+    "items": [
+        {
+            "name": "Health Potion",
+            "cost": 15,
+            "stats": {
+                "health": 100,
+                "stamina": 0,
+                "defense": 0,
+                "attack": 0
+            }
+        },
+        {
+            "name": "Wooden Shield",
+            "cost": 50,
+            "stats": {
+                "health": 0,
+                "stamina": 80,
+                "defense": 60,
+                "attack": 0
+            }
+        },
+        {
+            "name": "Bronze Sword",
+            "cost": 70,
+            "stats": {
+                "health": 0,
+                "stamina": 10,
+                "defense": 0,
+                "attack": 40
+            }
+        }
+    ]
+}
