@@ -10,14 +10,14 @@
         v-model="model"
         v-bind="$attrs"
         :type="type"
-        @focus.prevent="$emit('focus')"
+        @focus.prevent="$emit('focus', $event)"
       />
       <input
         v-else
         v-model="model"
         v-bind="$attrs"
         :type="type"
-        @focus.prevent="$emit('focus')"
+        @focus.prevent="$emit('focus', $event)"
       />
     </label>
   </div>
@@ -32,7 +32,7 @@
     },
     props: {
       value: {
-        type: String,
+        type: [String, Number],
         required: false,
         default: "",
       },
