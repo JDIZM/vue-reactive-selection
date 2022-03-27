@@ -2,6 +2,8 @@
   <v-contact-form
     v-if="formData && Object.entries(formData).length"
     :class="classes"
+    :hide-submit="!isModified"
+    label="SAVE"
     @submit="onSubmit"
   >
     <base-input
