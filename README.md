@@ -3,14 +3,14 @@
 This is built with Vue 2 using [Vite](https://vitejs.dev/).
 
 methods to detect changes in data
-1. using computed properties
-2. using a deep watcher
 
-console.logs remain for demo purposes
+1. using computed properties
+2. using deep/immediate watchers
 
 Demo url: [https://vue-reactive-selection.netlify.app](https://vue-reactive-selection.netlify.app)
 
-save changes when the form data is updated on button click versus using an auto timer.
+- save changes when the form data is updated on button click.
+- console.logs remain for demo purposes
 
 Resources
 - https://v2.vuejs.org/v2/guide/reactivity.html
