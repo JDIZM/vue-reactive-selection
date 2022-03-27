@@ -32,7 +32,7 @@
 <script>
   import { VContactForm } from "@jdizm/vue-storybook";
   import BaseInput from "@/components/BaseInput.vue";
-  import Vue from "vue";
+  // import Vue from "vue";
 
   export default {
     components: {
@@ -66,19 +66,28 @@
         };
       },
       computedUpdatedData() {
-        // method 1: using computed properties
+        // reactive method 1: using computed properties to update state
+        // this is an example, not being used
+        // note: you need to open vue dev tools for the
+        // computed property to log to the console
         const values = Object.values(this.updatedData);
         console.log("computedUpdatedData", values);
         return this.updatedData;
       },
+      computedFormData() {
+        // alternative to the formData watcher
+        console.log("computedFormData", this.formData);
+        return this.formData;
+      },
       isNameValid() {
-        return typeof this.name === "string" && this.name.length;
+        return typeof this.name === "string" && this.name.length > 0;
       },
       isCostValid() {
         return typeof this.cost === "number" && this.cost > 0;
       },
     },
     watch: {
+      // reactive method 2: using a deep/immediate watchers to watch changes
       formData: {
         // set data on first load with immediate
         immediate: true,
@@ -92,15 +101,14 @@
         },
       },
       updatedData: {
-        // method 2: using a deep watcher to watch changes
         deep: true,
-        handler(newVal) {
+        handler(newVal, oldVal) {
           // if updatedData is reset to empty
           // it breaks watchers
           // preserve the previous updated state
-          // console.log("watch updatedData old: ", oldVal);
+          console.log("watch updatedData old: ", oldVal);
           console.log("watch updatedData new: ", newVal);
-          this.$emit("edited");
+          this.$emit("edited", true);
         },
       },
     },
@@ -128,9 +136,11 @@
         console.log("onUpdate", data, key);
         // number converts to string
         // Vue.set(this.updatedData, key, data); // we lose the type this way
-        // maintain reactive state
-        Vue.set(this.updatedData, "name", this.name);
-        Vue.set(this.updatedData, "cost", this.cost);
+        // Vue.set is too reactive and breaks watcher
+        // Vue.set(this.updatedData, "name", this.name);
+        // Vue.set(this.updatedData, "cost", this.cost);
+        // works with the watcher and computed
+        this.updatedData = { name: this.name, cost: this.cost };
       },
       // eslint-disable-next-line no-unused-vars
       onFocus($event, key) {

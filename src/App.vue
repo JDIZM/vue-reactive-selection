@@ -7,7 +7,9 @@
         <div v-if="errorMsg" class="error">Error {{ errorMsg }}</div>
       </nav>
       <div v-show="!loading" class="list">
-        <p>select an item from the list, the form will display reactive data</p>
+        <p>
+          select an item from the list, the form will display reactive data.
+        </p>
         <selection-list :disabled="isModified">
           <selection-list-item
             v-for="(item, i) in clonedDataArray"
@@ -21,15 +23,16 @@
       </div>
       <div v-show="!loading" class="form">
         <p>
-          watch for changes when the form data updates, disable selecting
-          another item if the data has been modified
+          edit the form data to save changes. watch for changes when the form
+          data updates, disable selecting another item if the data has been
+          modified.
         </p>
         <editable-form
           v-if="showForm && formData && Object.entries(formData).length"
           :list-index="selectedIndex"
           :is-modified="isModified"
           :form-data="formData"
-          @edited="isModified = true"
+          @edited="isModified = $event"
           @submit="saveChanges"
         />
       </div>
@@ -59,11 +62,15 @@
         isModified: false,
         showForm: false,
         selectedIndex: 0,
-        formData: null,
+        formData: null, // not reactive
+        // object proprties need to be set
+        // during initialization to be reactive
       };
     },
     computed: {
       clonedDataArray() {
+        // reactive method 1: using computed properties to update state
+        // normally we should avoid mutating a computed value
         const cloned = [...this.sampleData.items];
         return cloned;
       },
@@ -80,17 +87,23 @@
     methods: {
       selectListItem(item, index) {
         console.log(`selectListItem:`, index, item);
+        // set selected state
         this.selectedIndex = index;
         this.formData = item;
+        // watcher will update state
       },
       saveChanges(payload) {
         // on button click
-        // versus auto timer
         this.isModified = false;
         console.log("saveChanges", payload);
         const { index, updatedData } = payload;
-        // reactive
+        // this will work with a cloned computed prop
+        // that doesn't mutate the original state
+        // this.clonedDataArray[index] = updatedData;
+        // otherwise we have to use the reactive Vue.set method
         Vue.set(this.clonedDataArray, index, updatedData);
+        // update initial prop state
+        this.formData = updatedData;
       },
     },
   };
