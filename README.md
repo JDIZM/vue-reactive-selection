@@ -2,6 +2,16 @@
 
 This is built with Vue 2 using [Vite](https://vitejs.dev/).
 
+methods to detect changes in data
+1. using computed properties
+2. using a deep wather
+
+console.logs remain for demo purposes
+
+Demo url: [https://vue-reactive-selection.netlify.app](https://vue-reactive-selection.netlify.app)
+
+save changes when the form data is updated on button click versus using an auto timer.
+
 Resources
 - https://v2.vuejs.org/v2/guide/reactivity.html
 - https://michaelnthiessen.com/how-to-watch-nested-data-vue/
@@ -11,13 +21,13 @@ Resources
 ```bash
 
 # install
-`yarn install`
+`npm i`
 
 # run the dev server
-`yarn dev`
+`npm run dev`
 
 # build for production
-`yarn build`
+`npm run build`
 
 ```
 
