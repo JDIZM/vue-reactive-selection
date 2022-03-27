@@ -4,7 +4,7 @@ This is built with Vue 2 using [Vite](https://vitejs.dev/).
 
 methods to detect changes in data
 1. using computed properties
-2. using a deep wather
+2. using a deep watcher
 
 console.logs remain for demo purposes
 
