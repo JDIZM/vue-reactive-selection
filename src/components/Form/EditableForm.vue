@@ -141,7 +141,7 @@
         // only send partial / patch update
         const value = this[key];
         const kvp = { [key]: value };
-        this.updatedData = { ...kvp };
+        this.updatedData = { ...this.updatedData, ...kvp };
         console.log("key", kvp);
       },
       // eslint-disable-next-line no-unused-vars
