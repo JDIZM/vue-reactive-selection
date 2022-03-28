@@ -99,11 +99,16 @@
         const { index, updatedData } = payload;
         // this will work with a cloned computed prop
         // that doesn't mutate the original state
+        // for testing purposes; ideally we want to make an api call
+        // to update the item or save state
         // this.clonedDataArray[index] = updatedData;
         // otherwise we have to use the reactive Vue.set method
-        Vue.set(this.clonedDataArray, index, updatedData);
+        Vue.set(this.clonedDataArray, index, {
+          ...this.clonedDataArray[index],
+          ...updatedData,
+        });
         // update initial prop state
-        this.formData = updatedData;
+        this.formData = { ...this.formData, ...updatedData };
       },
     },
   };

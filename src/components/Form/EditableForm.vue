@@ -105,9 +105,7 @@
       updatedData: {
         deep: true,
         handler(newVal, oldVal) {
-          // if updatedData is reset to empty
-          // it breaks watchers
-          // preserve the previous updated state
+          if (!Object.values(newVal).length) return;
           console.log("watch updatedData old: ", oldVal);
           console.log("watch updatedData new: ", newVal);
           this.$emit("edited", true);
@@ -125,24 +123,27 @@
         if (!this.isModified) return;
 
         const payload = {
-          updatedData: { ...this.formData, ...this.updatedData },
+          // either partial or full data
+          // updatedData: { ...this.formData, ...this.updatedData },
+          updatedData: this.updatedData,
           index: this.listIndex,
         };
         console.log("submit", payload);
         this.$emit("submit", payload);
-        // do not reset state of updatedData
-        // this breaks watchers, state and submit.
-        // this.updatedData = {};
+        this.updatedData = {};
       },
       onUpdate(data, key) {
         console.log("onUpdate", data, key);
         // number converts to string
         // Vue.set(this.updatedData, key, data); // we lose the type this way
         // Vue.set is too reactive and breaks watcher
-        // Vue.set(this.updatedData, "name", this.name);
-        // Vue.set(this.updatedData, "cost", this.cost);
-        // works with the watcher and computed
-        this.updatedData = { name: this.name, cost: this.cost };
+        // we could send all the data
+        // this.updatedData = { name: this.name, cost: this.cost };
+        // only send partial / patch update
+        const value = this[key];
+        const kvp = { [key]: value };
+        this.updatedData = { ...kvp };
+        console.log("key", kvp);
       },
       // eslint-disable-next-line no-unused-vars
       onFocus($event, key) {
