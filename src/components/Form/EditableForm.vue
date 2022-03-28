@@ -57,7 +57,6 @@
       return {
         name: "",
         cost: 0,
-        // will retain the last updated items state
         updatedData: {},
       };
     },
